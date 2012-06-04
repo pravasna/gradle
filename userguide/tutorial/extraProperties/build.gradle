@@ -1,0 +1,26 @@
+task myTask
+myTask.ext.myProperty = 'myCustomPropValue'
+
+task showProps << {
+    println myTask.myProperty
+}
+
+apply plugin: "java"
+
+sourceSets.all { ext.purpose = null }
+
+sourceSets {
+    main {
+        purpose = "production"
+    }
+    test {
+        purpose = "test"
+    }
+    plugin {
+        ext.purpose = "production"
+    }
+}
+
+task printProductionSourceDirs << {
+    sourceSets.matching { it.purpose == "production" }.each { println it.java.srcDirs }
+}

@@ -1,0 +1,16 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.8.2'
+}
+
+test {
+    systemProperties['property'] = 'value'
+    onlyIf { task ->
+        compileJava.didWork
+    }
+}

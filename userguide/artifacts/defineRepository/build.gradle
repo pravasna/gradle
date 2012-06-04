@@ -1,0 +1,114 @@
+repositories {
+    mavenCentral()
+}
+
+repositories {
+    mavenCentral name: 'single-jar-repo', artifactUrls: ["http://repo.mycompany.com/jars"]
+    mavenCentral name: 'multi-jar-repos', artifactUrls: ["http://repo.mycompany.com/jars1", "http://repo.mycompany.com/jars2"]
+}
+
+repositories {
+    mavenLocal()
+}
+
+repositories {
+    maven {
+        url "http://repo.mycompany.com/maven2"
+    }
+}
+
+repositories {
+    maven {
+        // Look for POMs and artifacts, such as JARs, here
+        url "http://repo2.mycompany.com/maven2"
+        // Look for artifacts here if not found at the above location
+        artifactUrls "http://repo.mycompany.com/jars"
+        artifactUrls "http://repo.mycompany.com/jars2"
+    }
+}
+
+repositories {
+    maven {
+        credentials {
+            username 'user'
+            password 'password'
+        }
+        url "http://repo.mycompany.com/maven2"
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'lib'
+    }
+    flatDir {
+        dirs 'lib1', 'lib2'
+    }
+}
+
+repositories {
+    ivy {
+        url "http://repo.mycompany.com/repo"
+    }
+}
+
+repositories {
+    ivy {
+        // URL can refer to a local directory
+        url "../local-repo"
+    }
+}
+
+repositories {
+    ivy {
+        url "http://repo.mycompany.com/repo"
+        layout "maven"
+    }
+}
+
+repositories {
+    ivy {
+        url "http://repo.mycompany.com/repo"
+        layout 'pattern', {
+            artifact "[module]/[revision]/[artifact].[ext]"
+            ivy "[module]/[revision]/ivy.xml"
+        }
+    }
+}
+
+repositories {
+    ivy {
+        artifactPattern "http://repo.mycompany.com/3rd-party-artifacts/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"
+        artifactPattern "http://repo.mycompany.com/company-artifacts/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"
+        ivyPattern "http://repo.mycompany.com/ivy-files/[organisation]/[module]/[revision]/ivy.xml"
+    }
+}
+
+repositories {
+    ivy {
+        credentials {
+            username 'user'
+            password 'password'
+        }
+        artifactPattern "http://repo.mycompany.com/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"
+    }
+}
+
+task lookup << {
+    println repositories.localRepository.name
+    println repositories['localRepository'].name
+}
+
+repositories {
+    flatDir {
+        name 'localRepository'
+    }
+}
+repositories {
+    localRepository {
+        dirs 'lib'
+    }
+}
+repositories.localRepository {
+    dirs 'lib'
+}

@@ -1,0 +1,18 @@
+apply plugin: 'announce'
+apply plugin: 'build-announcements'
+
+announce {  
+  username = 'myId'
+  password = 'myPassword'
+}
+
+
+task helloWorld << {  
+    ant.echo(message: "hello") 
+}  
+
+helloWorld.doLast {  
+    announce("Build complete", "notify-send")
+    announce("Build complete", "twitter")
+}
+

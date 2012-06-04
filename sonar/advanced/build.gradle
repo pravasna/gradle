@@ -1,0 +1,20 @@
+apply plugin: "java"
+apply plugin: "sonar"
+
+sourceSets {
+    custom
+    integTest
+}
+
+sonar.project {
+    sourceDirs += sourceSets.custom.allSource.srcDirs
+    testDirs += sourceSets.integTest.allSource.srcDirs
+}
+
+sonar.withGlobalProperties { props ->
+    props["some.global.property"] = "some value"
+}
+
+sonar.project.withProjectProperties { props ->
+    props["some.project.property"] = "some value"
+}
